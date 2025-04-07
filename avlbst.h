@@ -502,7 +502,7 @@ int avlHeight(AVLNode<Key, Value>* node) {
     } 
 
     // add 1
-    return 1 + std::max(calcHeightAVL(node->getLeft()), calcHeightAVL(node->getRight()));
+    return 1 + std::max(avlHeight(node->getLeft()), avlHeight(node->getRight()));
 }
 
 template<class Key, class Value>
@@ -513,8 +513,8 @@ void balanceCheck(AVLNode<Key, Value>* node) {
         return;
     } 
 
-    int heightLeft= calcHeightAVL(node->getLeft());
-    int heightRight = calcHeightAVL(node->getRight());
+    int heightLeft= avlHeight(node->getLeft());
+    int heightRight = avlHeight(node->getRight());
 
     node->setBalance(static_cast<int8_t>(heightRight - heightLeft));
 }
