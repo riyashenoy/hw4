@@ -649,29 +649,31 @@ Node<Key, Value>*
 BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current){
    
     // notthere
-    if (node == nullptr) {
+    if (current == nullptr) {
         return nullptr;
     }
     
     // no right child
-    if (node->getRight() != nullptr) {
-        Node<Key, Value>* checkChild = node->getRight();
+    if (current->getRight() != nullptr) {
+        Node<Key, Value>* checkChild = current->getRight();
+
         while (candidate->getLeft() != nullptr) {
             checkChild = candidate->getLeft();
         }
+        
         return checkChild;
     } 
     else {
         
         // finds parent
-        Node<Key, Value>* parent = node->getParent();
+        Node<Key, Value>* parent = current->getParent();
 
         if (parent == nullptr) {
             return nullptr;
         }
 
         // left
-        if (node == parent->getLeft()) {
+        if (current == parent->getLeft()) {
             return parent;
         }
         else {
