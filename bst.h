@@ -485,7 +485,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
     while(currentNode != nullptr){
 
         // update parent to current
-        parentNode = curentNode;
+        parentNode = currentNode;
 
         if(keyValuePair.first < currentNode->getKey()){
             // left subtree since key smalelr
@@ -503,7 +503,7 @@ void BinarySearchTree<Key, Value>::insert(const std::pair<const Key, Value> &key
     }
 
     // new node w found parent
-    Node<Key, Value>* newNode = new Node<Key,Value>(keyValuePair.first, keyValuePair.second, pNode);
+    Node<Key, Value>* newNode = new Node<Key,Value>(keyValuePair.first, keyValuePair.second, parentNode);
     
     // add new node to the croresponding parent
     if(keyValuePair.first < parentNode->getKey()){
@@ -628,17 +628,19 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value>* current)
         return checkChild;
     }
     else {
-    // no left child
-    Node<Key, Value>* parent = node->getParent();
-    if (parent == nullptr) {
-        // top of tree
-        return nullptr;
-    }
-    if (node == parent->getRight()) {
-        return parent;
-    } else {
-        // go up tree
-        return predecessor(parent);
+        // no left child
+        Node<Key, Value>* parent = current->getParent();
+        if (parent == nullptr) {
+            // top of tree
+            return nullptr;
+        }
+        if (current == parent->getRight()) {
+            return parent;
+        } 
+        else {
+            // go up tree
+            return predecessor(parent);
+        }
     }
 }
 
@@ -745,7 +747,7 @@ Node<Key, Value>* BinarySearchTree<Key, Value>::internalFind(const Key& key) con
 {
     // TODO
 
-    Node<Key,Value>* current = root_;
+    Node<Key,Value>* currentNode = root_;
 
     // loop until find key or end
     while(currentNode!= nullptr){
@@ -756,11 +758,11 @@ Node<Key, Value>* BinarySearchTree<Key, Value>::internalFind(const Key& key) con
         } 
         // go to left subtree
         else if(key < currentNode->getKey()){
-            currentNode = current->getLeft();
+            currentNode = currentNode->getLeft();
         } 
         // go right
         else{
-            currentNode = current->getRight();
+            currentNode = currentNode->getRight();
         }
     }
 
