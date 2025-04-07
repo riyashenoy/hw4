@@ -373,9 +373,10 @@ AVLNode<Key, Value>* AVLTree<Key, Value>::leftRot(AVLNode<Key, Value>* node) {
     pivot->setLeft(node);
     node->setParent(pivot);
     
-    // resets 
-    node->setBalance(0);
-    pivot->setBalance(0);
+    // fix
+    balanceCheck(node);
+    balanceCheck(pivot);
+
     return pivot;
 }
 
@@ -411,8 +412,8 @@ AVLNode<Key, Value>* AVLTree<Key, Value>::rightRot(AVLNode<Key, Value>* node) {
     node->setParent(pivot);
     
     // resest balances
-    node->setBalance(0);
-    pivot->setBalance(0);
+    balanceCheck(node);
+    balanceCheck(pivot);
    
     return pivot;
 }
@@ -488,6 +489,34 @@ void AVLTree<Key, Value>::fixRemove(AVLNode<Key, Value>* node, int8_t diff) {
         }
         node = parent;
     }
+}
+
+
+// bug fixing, more helpers
+template<class Key, class Value>
+int avlHeight(AVLNode<Key, Value>* node) {
+
+    // null check
+    if(node == nullptr){
+        return 0;
+    } 
+
+    // add 1
+    return 1 + std::max(calcHeightAVL(node->getLeft()), calcHeightAVL(node->getRight()));
+}
+
+template<class Key, class Value>
+void balanceCheck(AVLNode<Key, Value>* node) {
+    
+    // null check
+    if(node == nullptr){
+        return;
+    } 
+
+    int heightLeft= calcHeightAVL(node->getLeft());
+    int heightRight = calcHeightAVL(node->getRight());
+
+    node->setBalance(static_cast<int8_t>(heightRight - heightLeft));
 }
 
 #endif
