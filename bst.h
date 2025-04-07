@@ -716,16 +716,17 @@ Node<Key, Value>*
 BinarySearchTree<Key, Value>::getSmallestNode() const
 {
     // TODO
+    Node<Key, Value>* current = root_;
 
-    // start at root
-    Node<Key,Value>* current = root_;
+    // adds check?
+    if (current == nullptr) {
+        return nullptr;
+    }
 
-    while(current->getLeft() != nullptr){
-        // traverses until no more left children
+    // leftmost
+    while (current->getLeft() != nullptr) {
         current = current->getLeft();
     }
-    
-    
     return current;
 }
 
