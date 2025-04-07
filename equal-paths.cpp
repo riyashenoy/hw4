@@ -14,7 +14,7 @@ int checkHeights(Node* node, int heightCount, int* heightExpec){
 
     // nothing to check here
     if (node == nullptr){
-        return 0;
+        return true;
     }
 
     // check for leaf
