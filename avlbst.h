@@ -225,7 +225,7 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
         
         // unbalanced
         if(balanceNode->getBalance() == -2 || balanceNode->getBalance() == 2) {
-            balanceNode= rebalance(node);
+            balanceNode= rebalance(balanceNode);
             
             // root belancing
             if(balanceNode->getParent() == nullptr)
