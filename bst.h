@@ -663,24 +663,13 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current){
 
         return checkChild;
     } 
-    else {
-        
-        // finds parent
-        Node<Key, Value>* parent = current->getParent();
-
-        if (parent == nullptr) {
-            return nullptr;
-        }
-
-        // left
-        if (current == parent->getLeft()) {
-            return parent;
-        }
-        else {
-            // recursion, keep going up tree
-            return successor(parent);
-        }
+    // finds parent
+    Node<Key, Value>* parent = current->getParent();
+    while (parent != nullptr && current == parent->getRight()) {
+        current = parent;
+        parent = parent->getParent();
     }
+    return parent;
 }
 
 
@@ -731,10 +720,11 @@ BinarySearchTree<Key, Value>::getSmallestNode() const
     // start at root
     Node<Key,Value>* current = root_;
 
-    while (current != nullptr && current->getLeft() != nullptr) {
+    while(current->getLeft() != nullptr){
         // traverses until no more left children
         current = current->getLeft();
     }
+    
     
     return current;
 }
