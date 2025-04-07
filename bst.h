@@ -657,10 +657,10 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current){
     if (current->getRight() != nullptr) {
         Node<Key, Value>* checkChild = current->getRight();
 
-        while (candidate->getLeft() != nullptr) {
-            checkChild = candidate->getLeft();
+        while (checkChild->getLeft() != nullptr) {
+            checkChild = checkChild->getLeft();
         }
-        
+
         return checkChild;
     } 
     else {
